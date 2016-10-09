@@ -1,0 +1,12 @@
+{
+    "files": [
+        "**/*.js",
+        "!dist/**/*.js"
+    ],
+    "eslint": {
+        "rules": {
+            "no-console": false,
+            "fecs-valid-jsdoc": false
+        }
+    }
+}

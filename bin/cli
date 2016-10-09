@@ -1,0 +1,23 @@
+#! /usr/bin/env node
+
+import minimist from 'minimist';
+import {readFileSync, writeFileSync} from 'fs';
+import bilibili from '../lib/convert/bilibili';
+import {layoutDanmaku} from '../lib/util/layout';
+import getConfig from '../lib/config';
+import ass from '../lib/ass/create';
+
+let argv = minimist(process.argv.slice(2));
+
+let text = readFileSync(argv._[0], 'utf-8');
+let config = getConfig();
+let list = bilibili(text);
+let layoutList = layoutDanmaku(list, config);
+let content = ass(layoutList, config, {});
+
+if (argv.out) {
+    writeFileSync(argv.out, content, 'utf-8');
+}
+else {
+    console.log(content);
+}
