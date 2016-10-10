@@ -1,5 +1,13 @@
 # A站B站弹幕转字幕文件
 
+![](./screenshot/strike-witches.png)
+
+本工具主要解决部分已经下架的视频的弹幕播放问题，转为ass字幕后可以使用任意支持字幕的播放器播放。
+
+具体获取A站、B站弹幕的方法请自行搜索，B站可考虑使用[BiliPlus](https://www.biliplus.com/)或[哔哩哔哩唧唧](http://www.bilibilijj.com/)
+
+感谢[tiansh/us-danmaku](https://github.com/tiansh/us-danmaku)提供诸多指导。
+
 ## 安装方式
 
 ```shell
@@ -9,7 +17,7 @@ npm install -g danmaku-to-ass
 ## 使用方式
 
 ```shell
-danmaku {弹幕文件}
+danmaku [参数] [文件列表]
 ```
 
 默认输入为`.xml`文件时解析为B站弹幕，为`.json`文件（尚未实现）时解析为A站弹幕。
@@ -52,14 +60,29 @@ danmaku {弹幕文件}
 }
 ```
 
-## 程序调用（尚未实现）
+## 程序调用
 
 同样可以使用程序进行调用：
 
 ```javascript
-import {bilibili} from 'danmaku-to-ass';
+import convert from 'danmaku-to-ass';
 import {readFileSync} from 'fs';
 
-let text = readFileSync('bilibili.xml', 'utf-8');
-let ass = bilibili(text);
+let text = readFileSync('av12345.xml', 'utf-8');
+let ass = convert(text, {}, {source: 'bilibili', filename: 'av12345.xml'});
 ```
+
+函数签名：
+
+```
+{string} convert({string} text, {Object} configOverrides, {Object} context);
+```
+
+参数说明：
+
+- `text`：弹幕文件内容，如果是Bilibili则为XML文本，Acfun为JSON文本。
+- `configOverrides`：覆盖默认配置的内容，见上文的配置文件参考。
+- `context`：转换的上下文信息，需要2个属性：
+    - `{string} source`：内容的来源类型，为`"bilibili"`或`"acfun"`（注意全小写）。
+    - `{string} filename`：来源文件名，如果没有的话可以随便写一个，主要放在ass文件的信息部分。
+
