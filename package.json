@@ -2,9 +2,11 @@
   "name": "danmaku-to-ass",
   "version": "0.0.8",
   "description": "Convert bilibili & acfun danmaku to ass subtitle",
-  "main": "dist/index.js",
+  "main": "dist/lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -r dist",
+    "compile": "sh build.sh",
+    "prepublish": "npm run clean && npm run compile"
   },
   "keywords": [
     "danmaku",
@@ -14,6 +16,7 @@
   "author": "otakustay",
   "license": "LGPL-3.0",
   "devDependencies": {
+    "babel-cli": "^6.16.0",
     "babel-core": "^6.17.0",
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0"
@@ -25,6 +28,6 @@
     "xml-parser": "^1.2.1"
   },
   "bin": {
-    "danmaku": "./bin/cli"
+    "danmaku": "dist/bin/cli.js"
   }
 }

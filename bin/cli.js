@@ -39,9 +39,18 @@ let getConfigOverrides = argv => {
 let help = () => {
     let intent = '    ';
 
+    let packageInfo = (() => {
+        try {
+            return JSON.parse(readFileSync(join(__dirname, '..', 'package.json')));
+        }
+        catch (ex) {
+            return JSON.parse(readFileSync(join(__dirname, '..', '..', 'package.json')));
+        }
+    })();
+
     let content = [
         'Version:',
-        intent + require('../package.json').version,
+        intent + packageInfo.version,
         '',
         'Usage:',
         intent + 'danmaku [args ...] [file ...]',
