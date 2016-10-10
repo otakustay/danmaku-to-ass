@@ -52,7 +52,7 @@ let help = () => {
         '',
         'Config args:',
         intent + '--config: Specify a config file, all other config args will be ignored',
-        intent + '--font-size: List of font size, must be 2 number concat with comma, eg. 18,25',
+        intent + '--font-size: List of font size, must be 3 number (smaller to larger) concat with comma, eg. 18,25,36',
         intent + '--font-name: Name of font used',
         intent + '--opacity: Opacity of font, must be a float between [0, 1)',
         intent + '--padding: Padding around each danmaku, must be 4 number concat with comma, eg. 2,2,2,2',
