@@ -14,6 +14,7 @@ let getConfigOverrides = argv => {
     let integer = s => parseInt(s, 10);
     let float = s => parseFloat(s);
     let numberArray = s => s.split(',').map(s => s.trim()).map(Number);
+    let boolean = s => ({true: true, false: false})[s];
     let declarations = [
         ['fontSize', numberArray],
         ['fontName', use],
@@ -23,7 +24,8 @@ let getConfigOverrides = argv => {
         ['scrollTime', integer],
         ['fixTime', integer],
         ['opacity', float],
-        ['bottomSpace', integer]
+        ['bottomSpace', integer],
+        ['includeRaw', boolean]
     ];
     let camelCase = s => s.replace(/[A-Z]/g, c => '-' + c.toLowerCase());
 
@@ -69,7 +71,8 @@ let help = () => {
         intent + '--play-res-y: Height of video play area',
         intent + '--scroll-time: Display duration in seconds for scroll danmaku',
         intent + '--fix-time: Display duration in seconds for fixed (top or bottom) danmaku',
-        intent + '--bottom-space: Bottom space to avoid danmaku overlap on original subtitles'
+        intent + '--bottom-space: Bottom space to avoid danmaku overlap on original subtitles',
+        intent + '--include-raw: Wether to include raw infomations in .ass file, defaults to true, use false to disable'
     ];
 
     return content.join('\n');
