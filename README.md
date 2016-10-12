@@ -10,6 +10,14 @@
 
 ## 安装方式
 
+由于本工具使用了`node-canvas`进行字符长度的计算，而需要计算汉字的宽度，需要安装`pango`库，因此先参考[node-canvas的安装说明](https://github.com/Automattic/node-canvas#installation)进行安装。macOS除正常的依赖外，请额外安装`pango`库：
+
+```shell
+brew install pango
+```
+
+之后使用npm进行安装：
+
 ```shell
 npm install -g danmaku-to-ass
 ```
