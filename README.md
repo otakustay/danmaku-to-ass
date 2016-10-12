@@ -49,7 +49,8 @@ danmaku --font-size=12,18,24 --out-dir=./subtitle ./subtitle
 
 - `--config`：指定一个配置文件，格式见后文，指定该参数后其它配置参数都会失效。
 - `--font-size`：指定字号列表，必须是3个从小到大的数字并用逗号连接，比如`18,25,36`。
-- `--font-name`: 指定字体名称。
+- `--font-name`：指定字体名称。
+- `--bold`：指定是否使用粗体，值为`true`时表示使用粗体。
 - `--opacity:` 指定字体的透明度，必须是0-1之间的小数。
 - `--padding:` 指定每条弹幕四周的空白，必须是4个数字并用逗号连接，比如`2,2,2,2`。
 - `--play-res-x`：视频播放区域的宽度。
@@ -67,6 +68,7 @@ danmaku --font-size=12,18,24 --out-dir=./subtitle ./subtitle
 {
     "fontSize": [25, 36],
     "fontName": "黑体",
+    "bold": false,
     "padding": [2, 2, 2, 2],
     "playResX": 1280,
     "playResY": 720,
