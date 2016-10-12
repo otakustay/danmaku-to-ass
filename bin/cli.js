@@ -5,6 +5,12 @@ import {readFileSync, writeFileSync} from 'fs';
 import {basename, extname, join} from 'path';
 import convert from '../lib/index';
 
+const FILE_TYPE_MAPPING = {
+    '.xml': 'bilibili',
+    '.json': 'acfun',
+    '.ass': 'ass'
+};
+
 let getConfigOverrides = argv => {
     if (argv.config) {
         return JSON.parse(readFileSync(argv.config, 'utf-8'));
@@ -89,10 +95,15 @@ let configOverrides = getConfigOverrides(argv);
 
 let convertOne = (file, output) => {
     let text = readFileSync(file, 'utf-8');
-    let source = extname(file) === '.xml' ? 'bilibili' : 'acfun';
-    let content = convert(text, configOverrides, {source: source, filename: basename(file)});
-    writeFileSync(output, content, 'utf-8');
-    console.log(`${file} --> ${output}`);
+    let source = FILE_TYPE_MAPPING[extname(file)];
+    try {
+        let content = convert(text, configOverrides, {source: source, filename: basename(file)});
+        writeFileSync(output, content, 'utf-8');
+        console.log(`${file} --> ${output}`);
+    }
+    catch (ex) {
+        console.error(`Failed to convert ${file}: ${ex.message}`);
+    }
 };
 
 let files = argv._;
