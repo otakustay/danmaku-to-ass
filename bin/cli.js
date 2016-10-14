@@ -35,6 +35,7 @@ let getConfigOverrides = argv => {
         ['opacity', float],
         ['bottomSpace', integer],
         ['includeRaw', boolean],
+        ['mergeIn', integer],
         ['blockFile', use],
         ['block', multiple]
     ];
@@ -101,6 +102,7 @@ let help = () => {
         intent + '--fix-time: Display duration in seconds for fixed (top or bottom) danmaku',
         intent + '--bottom-space: Bottom space to avoid danmaku overlap on original subtitles',
         intent + '--include-raw: Wether to include raw infomation in .ass file, defaults to true, use false to disable',
+        intent + '--merge-in: Merge danmaku with same content in given time, the value should be a integer of seconds',
         intent + '--block: Blocks danmaku with given rule, can be appear multiple times',
         intent + '--block-file: Provide a file containing a list of block rule (one rule per line)',
         '',
