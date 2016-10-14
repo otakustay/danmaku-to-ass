@@ -3,6 +3,7 @@
 import minimist from 'minimist';
 import {readFileSync, writeFileSync} from 'fs';
 import {basename, extname, join} from 'path';
+import {assign} from '../lib/util/index';
 import convert from '../lib/index';
 
 const FILE_TYPE_MAPPING = {
@@ -12,10 +13,6 @@ const FILE_TYPE_MAPPING = {
 };
 
 let getConfigOverrides = argv => {
-    if (argv.config) {
-        return JSON.parse(readFileSync(argv.config, 'utf-8'));
-    }
-
     let use = s => s;
     let integer = s => parseInt(s, 10);
     let float = s => parseFloat(s);
@@ -61,8 +58,10 @@ let getConfigOverrides = argv => {
             process.exit(1);
         }
     }
+    let staticConfig = argv.config ? JSON.parse(readFileSync(argv.config, 'utf-8')) : {};
+    let blockList = (staticConfig.block || []).concat(overrides.block);
 
-    return overrides;
+    return assign(staticConfig, overrides, {block: blockList});
 };
 
 let help = () => {

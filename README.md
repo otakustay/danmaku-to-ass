@@ -62,7 +62,7 @@ danmaku --font-size=12,18,24 --out-dir=./subtitle ./subtitle
 - `--include-raw`：是否在生成的文件中保留原始信息，保留原始信息可以在后期重新使用本工具修改弹幕生成的参数，但会导致文件变大约1/3。该参数默认值为`true`，可提供`false`强制不保留原始信息。
 - `--merge-in`：指定n秒内出现相同弹幕合并为一条，参数值为一个数字，以秒为单位。
 - `--block`：提供正则来屏蔽弹幕，可以多次使用该参数，每次提供一个正则或内置规则。
-- `--block-file`：提供一个文件来屏蔽弹幕，文件中的每一行都是一个正则或内置规则，如果这个参数与`--block`一起出现，两者会被合并。
+- `--block-file`：提供一个文件来屏蔽弹幕，文件中的每一行都是一个正则或内置规则，如果这个参数与`--block`一起出现，两者会被合并。这个参数在配置文件中无效。
 
 #### 内置规则
 
@@ -88,6 +88,7 @@ danmaku --font-size=12,18,24 --out-dir=./subtitle ./subtitle
     "fixTime": 4,
     "opacity": 0.6,
     "bottomSpace": 60,
+    "block": [],
     "includeRaw": true
 }
 ```
