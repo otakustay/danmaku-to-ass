@@ -24,6 +24,7 @@ let getConfigOverrides = argv => {
     let declarations = [
         ['fontSize', numberArray],
         ['fontName', use],
+        ['color', use],
         ['bold', boolean],
         ['padding', numberArray],
         ['playResX', integer],
@@ -72,6 +73,7 @@ let help = () => {
         intent + '--config: Specify a config file, all other config args will be ignored',
         intent + '--font-size: List of font size, must be 3 number (smaller to larger) concat with comma, eg. 18,25,36',
         intent + '--font-name: Name of font used',
+        intent + '--color: Default danmaku color, use either "ff3300", "fc9730", "#fff" or "000" format',
         intent + '--bold: Wether text should be bold, true to enable',
         intent + '--opacity: Opacity of font, must be a float between [0, 1)',
         intent + '--padding: Padding around each danmaku, must be 4 number concat with comma, eg. 2,2,2,2',
