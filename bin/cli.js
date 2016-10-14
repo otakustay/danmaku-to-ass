@@ -23,6 +23,10 @@ let getConfigOverrides = argv => {
         ['fontSize', numberArray],
         ['fontName', use],
         ['color', use],
+        ['outlineColor', use],
+        ['backColor', use],
+        ['outline', integer],
+        ['shadow', integer],
         ['bold', boolean],
         ['padding', numberArray],
         ['playResX', integer],
@@ -59,7 +63,7 @@ let getConfigOverrides = argv => {
         }
     }
     let staticConfig = argv.config ? JSON.parse(readFileSync(argv.config, 'utf-8')) : {};
-    let blockList = (staticConfig.block || []).concat(overrides.block);
+    let blockList = (staticConfig.block || []).concat(overrides.block || []);
 
     return assign(staticConfig, overrides, {block: blockList});
 };
@@ -109,7 +113,8 @@ let help = () => {
         intent + 'A block rule can be either a regular expression or a built-in rule keyword, which is one of:',
         intent + intent + 'COLOR: To block all colorized danmaku',
         intent + intent + 'TOP: To block all top fixed danmaku',
-        intent + intent + 'BOTTOM: To block all bottom fixed danmaku'
+        intent + intent + 'BOTTOM: To block all bottom fixed danmaku',
+        intent + 'If the input file is a .ass file, it\'s original block rules are ignored'
     ];
 
     return content.join('\n');
