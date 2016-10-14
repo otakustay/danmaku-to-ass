@@ -19,6 +19,7 @@ let getConfigOverrides = argv => {
     let use = s => s;
     let integer = s => parseInt(s, 10);
     let float = s => parseFloat(s);
+    let multiple = i => [].concat(i);
     let numberArray = s => s.split(',').map(s => s.trim()).map(Number);
     let boolean = s => ({true: true, false: false})[s];
     let declarations = [
@@ -33,17 +34,34 @@ let getConfigOverrides = argv => {
         ['fixTime', integer],
         ['opacity', float],
         ['bottomSpace', integer],
-        ['includeRaw', boolean]
+        ['includeRaw', boolean],
+        ['blockFile', use],
+        ['block', multiple]
     ];
     let camelCase = s => s.replace(/[A-Z]/g, c => '-' + c.toLowerCase());
 
-    return declarations.reduce(
+    let overrides = declarations.reduce(
         (overrides, [name, convert]) => {
             let value = argv[camelCase(name)];
             return value ? Object.assign(overrides, {[name]: convert(value)}) : overrides;
         },
         {}
     );
+
+    // 处理屏蔽列表的合并
+    if (overrides.blockFile) {
+        try {
+            let blockList = readFileSync(overrides.blockFile, 'utf-8').split(/\r?\n/).filter(s => !!s.length);
+            overrides.block = (overrides.block || []).concat(blockList);
+            delete overrides.blockFile;
+        }
+        catch (ex) {
+            console.error(`Error reading block file ${overrides.blockFile}`);
+            process.exit(1);
+        }
+    }
+
+    return overrides;
 };
 
 let help = () => {
@@ -82,7 +100,15 @@ let help = () => {
         intent + '--scroll-time: Display duration in seconds for scroll danmaku',
         intent + '--fix-time: Display duration in seconds for fixed (top or bottom) danmaku',
         intent + '--bottom-space: Bottom space to avoid danmaku overlap on original subtitles',
-        intent + '--include-raw: Wether to include raw infomations in .ass file, defaults to true, use false to disable'
+        intent + '--include-raw: Wether to include raw infomation in .ass file, defaults to true, use false to disable',
+        intent + '--block: Blocks danmaku with given rule, can be appear multiple times',
+        intent + '--block-file: Provide a file containing a list of block rule (one rule per line)',
+        '',
+        'Block rule:',
+        intent + 'A block rule can be either a regular expression or a built-in rule keyword, which is one of:',
+        intent + intent + 'COLOR: To block all colorized danmaku',
+        intent + intent + 'TOP: To block all top fixed danmaku',
+        intent + intent + 'BOTTOM: To block all bottom fixed danmaku'
     ];
 
     return content.join('\n');
