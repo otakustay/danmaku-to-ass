@@ -142,7 +142,8 @@ let convertOne = (file, output) => {
         console.log(`${file} --> ${output}`);
     }
     catch (ex) {
-        console.error(`Failed to convert ${file}: ${ex.message}`);
+        console.error(`Failed to convert ${file}`);
+        console.error(ex);
     }
 };
 

@@ -6,7 +6,8 @@
     "eslint": {
         "rules": {
             "no-console": false,
-            "fecs-valid-jsdoc": false
+            "fecs-valid-jsdoc": false,
+            "fecs-valid-map-set": false
         }
     }
 }
