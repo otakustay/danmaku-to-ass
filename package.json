@@ -4,9 +4,9 @@
   "description": "Convert bilibili & acfun danmaku to ass subtitle",
   "main": "dist/lib/index.js",
   "scripts": {
-    "clean": "rm -r dist",
+    "clean": "rm -rf dist",
     "compile": "sh build.sh",
-    "prepublish": "npm run clean && npm run compile"
+    "prepare": "npm run clean && npm run compile"
   },
   "keywords": [
     "danmaku",
