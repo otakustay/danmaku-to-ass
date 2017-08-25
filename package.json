@@ -1,6 +1,6 @@
 {
   "name": "danmaku-to-ass",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Convert bilibili & acfun danmaku to ass subtitle",
   "main": "dist/lib/index.js",
   "scripts": {
